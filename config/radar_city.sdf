@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdf version="1.9">
+  <world name="radar_city">
+
+    <physics type="ode">
+      <max_step_size>0.004</max_step_size>
+      <real_time_factor>1.0</real_time_factor>
+      <real_time_update_rate>250</real_time_update_rate>
+    </physics>
+
+    <plugin name="gz::sim::systems::Physics" filename="gz-sim-physics-system"/>
+    <plugin name="gz::sim::systems::UserCommands" filename="gz-sim-user-commands-system"/>
+    <plugin name="gz::sim::systems::SceneBroadcaster" filename="gz-sim-scene-broadcaster-system"/>
+    <plugin name="gz::sim::systems::Contact" filename="gz-sim-contact-system"/>
+    <plugin name="gz::sim::systems::Imu" filename="gz-sim-imu-system"/>
+    <plugin name="gz::sim::systems::AirPressure" filename="gz-sim-air-pressure-system"/>
+    <plugin name="gz::sim::systems::ApplyLinkWrench" filename="gz-sim-apply-link-wrench-system"/>
+    <plugin name="gz::sim::systems::NavSat" filename="gz-sim-navsat-system"/>
+    <plugin name="gz::sim::systems::Sensors" filename="gz-sim-sensors-system">
+      <render_engine>ogre2</render_engine>
+    </plugin>
+
+    <gravity>0 0 -9.8</gravity>
+    <magnetic_field>6e-06 2.3e-05 -4.2e-05</magnetic_field>
+    <atmosphere type="adiabatic"/>
+
+    <scene>
+      <grid>false</grid>
+      <ambient>0.4 0.4 0.4 1</ambient>
+      <background>0.7 0.7 0.7 1</background>
+      <shadows>true</shadows>
+    </scene>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <collision name="collision">
+          <geometry><plane><normal>0 0 1</normal><size>1 1</size></plane></geometry>
+          <surface><friction><ode/></friction><bounce/><contact/></surface>
+        </collision>
+        <visual name="visual">
+          <geometry><plane><normal>0 0 1</normal><size>300 300</size></plane></geometry>
+          <material>
+            <ambient>0.35 0.45 0.3 1</ambient>
+            <diffuse>0.4 0.5 0.35 1</diffuse>
+            <specular>0.3 0.3 0.3 1</specular>
+          </material>
+        </visual>
+        <pose>0 0 0 0 -0 0</pose>
+        <inertial>
+          <pose>0 0 0 0 -0 0</pose>
+          <mass>1</mass>
+          <inertia><ixx>1</ixx><ixy>0</ixy><ixz>0</ixz><iyy>1</iyy><iyz>0</iyz><izz>1</izz></inertia>
+        </inertial>
+        <enable_wind>false</enable_wind>
+      </link>
+      <pose>0 0 0 0 -0 0</pose>
+      <self_collide>false</self_collide>
+    </model>
+
+    <model name="bld_n1"><static>true</static><pose>15 20 4 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6 6 8</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6 6 8</size></box></geometry>
+          <material><ambient>0.55 0.5 0.45 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="bld_n2"><static>true</static><pose>-15 20 6 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>5 5 12</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>5 5 12</size></box></geometry>
+          <material><ambient>0.6 0.55 0.5 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="bld_e1"><static>true</static><pose>20 5 5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6 8 10</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6 8 10</size></box></geometry>
+          <material><ambient>0.5 0.45 0.4 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="bld_s1"><static>true</static><pose>-10 -20 5 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>7 7 10</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>7 7 10</size></box></geometry>
+          <material><ambient>0.5 0.55 0.5 1</ambient></material></visual>
+      </link>
+    </model>
+    <model name="bld_w1"><static>true</static><pose>-20 0 4 0 0 0</pose>
+      <link name="link">
+        <collision name="c"><geometry><box><size>6 8 8</size></box></geometry></collision>
+        <visual name="v"><geometry><box><size>6 8 8</size></box></geometry>
+          <material><ambient>0.55 0.5 0.45 1</ambient></material></visual>
+      </link>
+    </model>
+
+    <!-- Pillars: VISUAL ONLY (no collision) -->
+    <model name="pillar_ring"><static>true</static><pose>0 0 0 0 0 0</pose>
+      <link name="p0"><pose> 8  0 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p1"><pose> 5.66  5.66 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p2"><pose> 0  8 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p3"><pose>-5.66  5.66 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p4"><pose>-8  0 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p5"><pose>-5.66 -5.66 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p6"><pose> 0 -8 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+      <link name="p7"><pose> 5.66 -5.66 1.5 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.6 0.6 3</size></box></geometry>
+          <material><ambient>0.4 0.3 0.2 1</ambient></material></visual></link>
+    </model>
+
+    <model name="pillar_outer"><static>true</static><pose>0 0 0 0 0 0</pose>
+      <link name="p0"><pose> 15  0 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p1"><pose> 10.6 10.6 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p2"><pose> 0  15 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p3"><pose>-10.6 10.6 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p4"><pose>-15  0 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p5"><pose>-10.6 -10.6 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p6"><pose> 0 -15 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+      <link name="p7"><pose> 10.6 -10.6 2 0 0 0</pose>
+        <visual name="v"><geometry><box><size>0.8 0.8 4</size></box></geometry>
+          <material><ambient>0.3 0.25 0.15 1</ambient></material></visual></link>
+    </model>
+
+    <light name="sunUTC" type="directional">
+      <pose>0 0 500 0 -0 0</pose>
+      <cast_shadows>true</cast_shadows>
+      <intensity>1</intensity>
+      <direction>0.001 0.625 -0.78</direction>
+      <diffuse>0.904 0.904 0.904 1</diffuse>
+      <specular>0.271 0.271 0.271 1</specular>
+      <attenuation><range>2000</range><linear>0</linear><constant>1</constant><quadratic>0</quadratic></attenuation>
+      <spot><inner_angle>0</inner_angle><outer_angle>0</outer_angle><falloff>0</falloff></spot>
+    </light>
+
+    <spherical_coordinates>
+      <surface_model>EARTH_WGS84</surface_model>
+      <world_frame_orientation>ENU</world_frame_orientation>
+      <latitude_deg>47.397971057728974</latitude_deg>
+      <longitude_deg> 8.546163739800146</longitude_deg>
+      <elevation>0</elevation>
+    </spherical_coordinates>
+
+    <!-- NO drone include — PX4 will spawn it via service -->
+
+  </world>
+</sdf>
